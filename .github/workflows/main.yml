@@ -19,25 +19,22 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run tests
-      #- name: Run tests
-      #  run: npm test
-
-      # Step 5: Build the project (if applicable)
+      # Step 4: Build the project (if applicable)
       - name: Build the project
         run: npm run build || echo "No build step defined"
 
-      # Step 6: Copy artifacts (if applicable)
+      # Step 5: Copy artifacts (if applicable)
       - name: Copy artifacts
         run: |
           mkdir -p ${{ github.workspace }}/artifacts
           cp -r dist/* ${{ github.workspace }}/artifacts/ || true
 
-      # Step 7: Upload artifacts
+      # Step 6: Upload artifacts
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
           name: nodejs-artifacts
+          path: ${{ github.workspace }}/artifacts/
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
